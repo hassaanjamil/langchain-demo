@@ -10,3 +10,51 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "streamlit>=1.57.0"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "black[d]>=24.0.0",
+    "isort>=5.13.0",
+    "flake8>=7.0.0",
+    "pylint>=3.0.0",
+    "pytest>=7.0.0"
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | __pycache__
+  | \.pytest_cache
+  | \.vscode
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
+known_first_party = ["langchain_demo"]
+default_section = "THIRDPARTY"
+
+[tool.pylint.messages_control]
+disable = [
+    "C0111",  # missing-docstring
+    "R0913",  # too-many-arguments
+    "W0212",  # protected-access
+]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [".venv", "__pycache__", ".git", ".pytest_cache"]
+per-file-ignores = [
+    "__init__.py:F401"
+]

@@ -256,6 +256,17 @@ GROQ_API_KEY=your_key_here
 
 ## 💡 Development Notes
 
+### Code Formatting & Linting
+
+This project uses automatic code formatting on save with **Black** and **isort**:
+
+- **On Save**: Black (formatter) + isort (import sorting) run automatically
+- **During Editing**: Flake8 provides real-time linting feedback
+- **Line Length**: 100 characters (Python standard)
+- **Manual Check**: `uv run isort . && uv run black . && uv run flake8 .`
+
+See [FORMATTING.md](FORMATTING.md) for detailed setup and troubleshooting.
+
 ### Tool Design Patterns
 
 **Simple Tools** (Demo 1):
