@@ -1,3 +1,67 @@
+"""
+Demo 2: Advanced LLM Agent with Context & Pydantic-Style Tools
+===============================================================
+
+This script demonstrates advanced LangChain features including user context, structured
+responses, context-aware tools, and conversation memory management. This is a production-
+ready pattern for building intelligent agents.
+
+KEY CONCEPTS:
+  - Context Schema: User-specific data passed to tools (user_id, preferences, etc.)
+  - ToolRuntime: Special tool parameter that receives access to agent context
+  - Response Format: Pydantic-style dataclass with structured fields and descriptions
+  - Checkpointer: Memory persistence for multi-turn conversations
+  - Thread ID: Unique identifier for conversation sessions
+  - Model Temperature: Controls randomness (0.3 = more deterministic)
+
+FEATURES:
+  ✓ Context-aware tools that access user information
+  ✓ Structured output with type-safe Pydantic dataclasses
+  ✓ Conversation memory using InMemorySaver checkpointer
+  ✓ Multi-turn conversation support (thread_id based)
+  ✓ Field metadata guidance for LLM output formatting
+  ✓ Deterministic responses with lower temperature setting
+  ✓ Two tools working together (locate_user + get_weather)
+
+ARCHITECTURE:
+  Context (user_id)
+    ↓
+  Agent with Tools
+    ├─ locate_user(runtime: ToolRuntime[Context])
+    │   └─ Looks up city based on user_id from context
+    └─ get_weather(city: str)
+        └─ Fetches weather from wttr.in API
+    ↓
+  ResponseFormat (structured output)
+    ├─ summary: Natural language weather description
+    ├─ temperature_celsius: Numeric value
+    ├─ temperature_fahrenheit: Numeric value
+    └─ humidity: Numeric value
+
+REQUIREMENTS:
+  - GOOGLE_API_KEY environment variable set in .env file
+  - Internet connection for weather API calls
+  - Dependencies: langchain, langchain-google-genai, langgraph, requests, python-dotenv
+
+USAGE:
+  $ python 2_llm_agent_context_pydantic_tool/main.py
+
+EXPECTED OUTPUT:
+  Structured response object with:
+    - summary: "Heavy rain and windy"
+    - temperature_celsius: 12.0
+    - temperature_fahrenheit: 53.6
+    - humidity: 88.0
+
+EXTENSION IDEAS:
+  - Add database tool for user preferences
+  - Persist checkpointer to database instead of memory
+  - Add multi-turn loop for interactive conversations
+  - Implement error recovery and tool retries
+  - Add logging and observability
+
+"""
+
 from dataclasses import dataclass, field
 
 import requests
