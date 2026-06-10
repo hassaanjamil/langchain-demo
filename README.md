@@ -237,6 +237,8 @@ The project uses `.env` files for sensitive configuration:
 
 ```env
 GOOGLE_API_KEY=your_key_here
+OR
+GROQ_API_KEY=your_key_here
 ```
 
 **Note**: Never commit `.env` files to version control. The file is typically added to `.gitignore`.
@@ -292,7 +294,7 @@ class MyResponse:
 - **Context**: User-specific data passed per invocation
 
 ```python
-config = {'configurable': {'thread_id': 1}}
+config = {'configurable': {'thread_id': '1'}}
 result = agent.invoke(input, config=config, context=Context(...))
 ```
 
