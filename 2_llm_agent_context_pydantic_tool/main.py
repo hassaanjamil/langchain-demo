@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.tools import tool, ToolRuntime
 from langchain.chat_models import init_chat_model
+from langchain.messages import HumanMessage
 from langgraph.checkpoint.memory import InMemorySaver
 
 load_dotenv()
@@ -57,9 +58,12 @@ config = {'configurable': {'thread_id': 1}}
 
 result = agent.invoke({
     'messages': [
-        HumanMessage(content="What is the weather in San Francisco?")
-    ],
-    config=config
-})
+        HumanMessage(content="What is the weather like?")
+    ]},
+    config=config,
+    context=Context(user_id='ABC123')
+)
 
-print(result["messages"][-1].content)
+print(result["structured_response"])
+print(result["structured_response"].summary)
+print(result["structured_response"].temperature_celsius)
