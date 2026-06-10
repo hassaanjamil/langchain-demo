@@ -53,13 +53,6 @@ EXPECTED OUTPUT:
     - temperature_fahrenheit: 53.6
     - humidity: 88.0
 
-EXTENSION IDEAS:
-  - Add database tool for user preferences
-  - Persist checkpointer to database instead of memory
-  - Add multi-turn loop for interactive conversations
-  - Implement error recovery and tool retries
-  - Add logging and observability
-
 """
 
 from dataclasses import dataclass, field
