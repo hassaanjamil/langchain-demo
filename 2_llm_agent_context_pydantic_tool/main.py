@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import requests
 from dotenv import load_dotenv
@@ -13,14 +13,25 @@ load_dotenv()
 
 @dataclass
 class Context:
-    user_id: str
+    """Context containing user related core values"""
+    user_id: str = field(
+        metadata={"description": "The unique alphanumeric identifier for the user"}
+    )
 
 @dataclass
 class ResponseFormat:
-    summary: str
-    temperature_celsius: float
-    temperature_fahrenheit: float
-    humidity: float
+    summary: str = field(
+        metadata={"description": "Short and precise string summary of weather information"}
+    )
+    temperature_celsius: float = field(
+        metadata={"description": "Numeric temperature in celsius one place decimal"}
+    )
+    temperature_fahrenheit: float = field(
+        metadata={"description": "Numeric temperature fahrenheit in one place decimal"}
+    )
+    humidity: float = field(
+        metadata={"description": "Numeric humidity value in one place decimal"}
+    )
 
 @tool('locate_user', description="Look up a user's city based on the context")
 def locate_user(runtime: ToolRuntime[Context]):
