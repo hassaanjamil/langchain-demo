@@ -58,14 +58,13 @@ checkpointer = InMemorySaver()
 agent = create_agent(
     model=model,
     tools=[get_weather, locate_user],
-    system_prompt="You are a helpful weather assistant, who are always cracks jokes"
-    " and humorous while remaining helpful.",
+    system_prompt="You are a helpful weather assistant",
     context_schema=Context,
     response_format=ResponseFormat,
     checkpointer=checkpointer
 )
 
-config = {'configurable': {'thread_id': 1}}
+config = {'configurable': {'thread_id': '1'}}
 
 result = agent.invoke({
     'messages': [
